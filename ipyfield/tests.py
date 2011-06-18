@@ -7,6 +7,11 @@ from IPy import IP
 class DummyModel(Model):
     field = IPyField()
 
+    def __str__(self):
+        return '<DummyModel %s>' % self.pk
+
+    __repr__ = __str__
+
 class IPyFieldTests(TestCase):
 
     def setUp(self):
@@ -31,5 +36,12 @@ class IPyFieldTests(TestCase):
                .count())
         self.assertEqual(4, DummyModel.objects.filter(
                field__in=IP('127.0.0.0/30')).count())
+        # testing lookups work with str as __in param rather than 
+        # requiring an IP instance
+        self.assertQuerysetEqual(
+               DummyModel.objects.filter(field__in=IP('127.0.0.0/30')),
+               [repr(o) for o in DummyModel.objects.filter(
+                                            field__in='127.0.0.0/30')])
+
 
 
