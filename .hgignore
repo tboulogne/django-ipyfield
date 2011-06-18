@@ -1,0 +1,11 @@
+^.project$
+^.pydevproject$
+^.settings/
+^build/
+^dist/
+^test_proj/local_settings.py$
+^test_proj/uploads
+.*\.db$
+.*\.pyc$
+.*\.egg-info$
+^docs/_build
