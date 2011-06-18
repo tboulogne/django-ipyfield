@@ -1,11 +1,13 @@
 from django.test import TestCase
 from django.db.models import Model
+from django.db import IntegrityError
 from ipyfield.models import IPyField
 from IPy import IP
 
 
 class DummyModel(Model):
     field = IPyField()
+    null_field = IPyField(null=True)
 
     def __str__(self):
         return '<DummyModel %s>' % self.pk
@@ -43,5 +45,12 @@ class IPyFieldTests(TestCase):
                [repr(o) for o in DummyModel.objects.filter(
                                             field__in='127.0.0.0/30')])
 
+
+    def test_null_values(self):
+        with self.assertRaises(IntegrityError):
+            # non-null field should require value
+            DummyModel.objects.create()
+        # null field is fine unspecified
+        DummyModel.objects.create(field='1.1.1.1')
 
 
