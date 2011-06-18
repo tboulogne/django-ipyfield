@@ -22,9 +22,11 @@ class IPyFieldTests(TestCase):
     def test_lookups_in_CIDR(self):
         ip_block = IP('127.0.0.0/28')
         [DummyModel.objects.create(field=ip) for ip in ip_block]
-        self.assertEqual(len(ip_block), DummyModel.objects.count())
+        self.assertEqual(16, len(ip_block), DummyModel.objects.count())
         self.assertTrue(DummyModel.objects.count() > 
                DummyModel.objects.filter(field__in=IP('127.0.0.0/30'))\
                .count())
+        self.assertEqual(4, DummyModel.objects.filter(
+               field__in=IP('127.0.0.0/30')).count())
 
 
