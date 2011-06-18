@@ -7,8 +7,6 @@ class IPyField(models.Field):
     """
     
     __metaclass__ = models.SubfieldBase
-    #def __init__(self, default=None, *args, **kwargs):
-    #    super(IPyField, self).__init__(default=default, *args, **kwargs)
 
     def to_python(self, value):
         if not value: 
