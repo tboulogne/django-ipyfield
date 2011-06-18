@@ -12,6 +12,9 @@ class IPyFieldTests(TestCase):
     def setUp(self):
         self.obj = DummyModel()
 
+    def test_empty(self):
+        self.assertEqual(None, self.obj.field)
+
     def test_iptype(self):
         self.obj.field = '127.0.0.1'
         self.assertEqual(self.obj.field.iptype(),'PRIVATE')

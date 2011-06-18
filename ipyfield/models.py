@@ -12,7 +12,7 @@ class IPyField(models.Field):
 
     def to_python(self, value):
         if not value: 
-            return value
+            return None
         elif isinstance(value, IP):
             return value
         else:
@@ -21,7 +21,7 @@ class IPyField(models.Field):
     def get_prep_value(self, value):
         value = self.to_python(value)
         if not value:
-            return value
+            return None
         return value.int()
 
     def get_internal_type(self):
