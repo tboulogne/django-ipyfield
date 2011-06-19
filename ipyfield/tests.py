@@ -53,4 +53,8 @@ class IPyFieldTests(TestCase):
         # null field is fine unspecified
         DummyModel.objects.create(field='1.1.1.1')
 
+    def test_ipv6_support(self):
+        obj = DummyModel.objects.create(field='2001:dead:beef::1')
+        self.assertEqual(obj.field.version(), 6)
+
 
