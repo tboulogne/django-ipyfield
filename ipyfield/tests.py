@@ -1,7 +1,7 @@
 from django.test import TestCase
 from django.db.models import Model
 from django.db import IntegrityError
-from ipyfield import IPyField
+from ipyfield.models import IPyField
 from IPy import IP
 
 

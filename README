@@ -38,7 +38,7 @@ Usage
 In your models, do something like the fallowing: ::
     
     from django.db import models
-    from ipyfield import IPyField
+    from ipyfield.models import IPyField
 
     class MyModel(models.Model):
 
