@@ -35,7 +35,7 @@ or with ``easy_install``: ::
 Usage
 -----
 
-In your models, do something like the fallowing: ::
+In your models, do something like the following: ::
     
     from django.db import models
     from ipyfield.models import IPyField
@@ -53,7 +53,7 @@ object can be used.
 
 When making queries, I added one extra piece of syntactical sugar. For 
 ``__in`` (range) lookups, you can pass a **CIDR** notation address range, for 
-eaxample: ::
+example: ::
     
     MyModel.objects.filter(ipaddr__in='10.0.0.0/24')
 
