@@ -6,7 +6,7 @@ django-ipyfield
 ``ipyfield`` provides a model field for 
 `django <https://www.djangoproject.com>`_
 that allows the storage of an ip address as a ``BigInt`` on the db side by 
-using `IPy <http://pypi.python.org/pypi/IPy/>`_ to handel 
+using `IPy <http://pypi.python.org/pypi/IPy/>`_ to handle 
 conversion to an ``IPy.IP`` instance (or ``None``) on the python side. 
 
 Wut?
