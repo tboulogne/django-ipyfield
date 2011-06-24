@@ -45,6 +45,11 @@ class IPyFieldTests(TestCase):
                [repr(o) for o in DummyModel.objects.filter(
                                             field__in='127.0.0.0/30')])
 
+        self.assertQuerysetEqual(
+               DummyModel.objects.filter(field__in=IP('127.0.0.0/30')),
+               [repr(o) for o in DummyModel.objects.filter(
+                               field__in='127.0.0.0/255.255.255.252')])
+
 
     def test_null_values(self):
         with self.assertRaises(IntegrityError):

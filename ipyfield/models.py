@@ -24,8 +24,7 @@ class IPyField(models.Field):
 
     def get_prep_lookup(self, lookup_type, value):
         if lookup_type == 'in':
-            if isinstance(value, str) and '/' in value:
-                # convert to CIDR iter
+            if isinstance(value, str):
                 value = IP(value)
             return [self.get_prep_value(v) for v in value]
         else: 
