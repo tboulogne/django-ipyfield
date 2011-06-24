@@ -29,7 +29,7 @@ class IPyFieldTests(TestCase):
         self.assertEqual(self.obj.field.iptype(), 'PUBLIC')
 
 
-    def test_lookups_in_CIDR(self):
+    def test_range_lookups(self):
         ip_block = IP('127.0.0.0/28')
         [DummyModel.objects.create(field=ip) for ip in ip_block]
         self.assertEqual(16, len(ip_block), DummyModel.objects.count())
@@ -49,6 +49,17 @@ class IPyFieldTests(TestCase):
                DummyModel.objects.filter(field__in=IP('127.0.0.0/30')),
                [repr(o) for o in DummyModel.objects.filter(
                                field__in='127.0.0.0/255.255.255.252')])
+
+        self.assertQuerysetEqual(
+               DummyModel.objects.filter(field__in=IP('127.0.0.0/30')),
+               [repr(o) for o in DummyModel.objects.filter(
+                                     field__in='127.0.0.0-127.0.0.3')])
+        # flat list of string addresses should also work the same
+        self.assertQuerysetEqual(
+               DummyModel.objects.filter(field__in=IP('127.0.0.0/30')),
+               [repr(o) for o in DummyModel.objects.filter(
+                                   field__in=['127.0.0.0', '127.0.0.1', 
+                                              '127.0.0.2', '127.0.0.3'])])
 
 
     def test_null_values(self):
