@@ -27,8 +27,10 @@ class IPyField(models.Field):
             if isinstance(value, str):
                 value = IP(value)
             return [self.get_prep_value(v) for v in value]
-        else: 
+        elif lookup_type == 'exact':
             return self.get_prep_value(value)
+        else:
+            raise TypeError('Lookup type %r not supported.' % lookup_type)
 
     def get_internal_type(self):
         return 'BigIntegerField'

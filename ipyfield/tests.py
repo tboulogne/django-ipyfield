@@ -73,4 +73,19 @@ class IPyFieldTests(TestCase):
         obj = DummyModel.objects.create(field='2001:dead:beef::1')
         self.assertEqual(obj.field.version(), 6)
 
+    def test_valid_lookups(self):
+        with self.assertRaises(TypeError):
+            # it's possible people will forget this is not a char/text field.
+            DummyModel.objects.filter(field__startswith='127.0.0')
+
+        with self.assertRaises(TypeError):
+            # greater/less than should be rewritten as range queries.
+            DummyModel.objects.filter(field__gt=1000)
+
+        # all valid, but won't return anything....
+        DummyModel.objects.filter(field=1000)
+        DummyModel.objects.filter(field__exact='127.0.0')
+        DummyModel.objects.filter(field__in=[1,2,3])
+
+
 
