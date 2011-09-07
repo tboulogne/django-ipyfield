@@ -68,7 +68,8 @@ Changelog
 0.1.4
     IPy.IP instance raises exception when compared to a non-IP instance. This
     becomes an issue when you get into ModelForm validation (didn't come up when
-    only using the ORM) with regards to empty/null values.
+    only using the ORM) with regards to empty/null values. Fixed by subclassing
+    (wrapping) IPy.IP.
 0.1.3
     Basic field functionality in place.
 
