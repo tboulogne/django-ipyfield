@@ -2,7 +2,8 @@ from django.test import TestCase
 from django.db.models import Model
 from django.db import IntegrityError
 from ipyfield.models import IPyField
-from IPy import IP
+from ipyfield import IP
+import IPy
 
 
 class DummyModel(Model):
@@ -13,6 +14,18 @@ class DummyModel(Model):
         return '<DummyModel %s>' % self.pk
 
     __repr__ = __str__
+
+
+class IPySubclassTests(TestCase):
+    def test_ipyfield_can_compare_to_non_IP(self):
+        self.assertNotEqual(IP('::1'), 'foo')
+        self.assertNotEqual(IP('::1'), 22)
+
+    def test_IPy_cant_compare_to_non_IP(self):
+        with self.assertRaises(AttributeError):
+            self.assertNotEqual(IPy.IP('::1'), 'foo')
+        with self.assertRaises(AttributeError):
+            self.assertNotEqual(IPy.IP('::1'), 22)
 
 class IPyFieldTests(TestCase):
 

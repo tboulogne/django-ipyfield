@@ -62,3 +62,14 @@ query. For now, if you need to use a ``prefix-netmask`` style notation, pass it
 to ``IPy.IP`` yourself and use the resulting instance as your filter parameter.
 
 
+Changelog
+---------
+
+0.1.4
+    IPy.IP instance raises exception when compared to a non-IP instance. This
+    becomes an issue when you get into ModelForm validation (didn't come up when
+    only using the ORM) with regards to empty/null values.
+0.1.3
+    Basic field functionality in place.
+
+

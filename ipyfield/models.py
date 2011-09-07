@@ -1,9 +1,10 @@
 from django.db import models
-from IPy import IP
+from ipyfield import IP
+
 
 class IPyField(models.Field):
     """
-    Handles conversion between int db column and IPy.IP instance.
+    Handles conversion between int db column and IP instance.
     """
     
     __metaclass__ = models.SubfieldBase
@@ -21,6 +22,10 @@ class IPyField(models.Field):
         if not value:
             return None
         return value.int()
+
+    def to_string(self, obj):
+        value = self._get_val_from_obj(obj)
+        return str(self.get_db_prep_value(value))
 
     def get_prep_lookup(self, lookup_type, value):
         if lookup_type == 'in':

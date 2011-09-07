@@ -13,7 +13,7 @@ setup(
     author_email="onelson@gmail.com",
     license="MIT",
     description="IPy.IP instances with BigInt storage for django models",
-    long_description=open('README').read(),
+    long_description=open('README.rst').read(),
     keywords="ip, models, django",
     packages=find_packages(),
     setup_requires=("setuptools"),
