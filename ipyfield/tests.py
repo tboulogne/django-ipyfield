@@ -1,9 +1,9 @@
 from django.test import TestCase
 from django.db.models import Model
-from django.db import IntegrityError
+from django.db import IntegrityError, transaction
 from ipyfield.models import IPyField
-from ipyfield import IP
 import IPy
+from IPy import IP
 
 
 class DummyModel(Model):
@@ -79,8 +79,6 @@ class IPyFieldTests(TestCase):
         with self.assertRaises(IntegrityError):
             # non-null field should require value
             DummyModel.objects.create()
-        # null field is fine unspecified
-        DummyModel.objects.create(field='1.1.1.1')
 
     def test_ipv6_support(self):
         obj = DummyModel.objects.create(field='2001:dead:beef::1')

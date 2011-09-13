@@ -1,5 +1,5 @@
 from django.db import models
-from ipyfield import IP
+from IPy import IP
 
 
 class IPyField(models.Field):
@@ -21,7 +21,7 @@ class IPyField(models.Field):
         value = self.to_python(value)
         if not value:
             return None
-        return value.int()
+        return str(value.int())
 
     def to_string(self, obj):
         value = self._get_val_from_obj(obj)
@@ -37,6 +37,9 @@ class IPyField(models.Field):
         else:
             raise TypeError('Lookup type %r not supported.' % lookup_type)
 
+    def db_type(self):
+        return 'varchar(39)'
+
     def get_internal_type(self):
-        return 'BigIntegerField'
+        return 'CharField'
 
