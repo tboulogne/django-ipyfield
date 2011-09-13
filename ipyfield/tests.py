@@ -1,6 +1,6 @@
 from django.test import TestCase
 from django.db.models import Model
-from django.db import IntegrityError, transaction
+from django.db import IntegrityError
 from ipyfield.models import IPyField
 import IPy
 from IPy import IP
@@ -46,12 +46,12 @@ class IPyFieldTests(TestCase):
         ip_block = IP('127.0.0.0/28')
         [DummyModel.objects.create(field=ip) for ip in ip_block]
         self.assertEqual(16, len(ip_block), DummyModel.objects.count())
-        self.assertTrue(DummyModel.objects.count() > 
+        self.assertTrue(DummyModel.objects.count() >
                DummyModel.objects.filter(field__in=IP('127.0.0.0/30'))\
                .count())
         self.assertEqual(4, DummyModel.objects.filter(
                field__in=IP('127.0.0.0/30')).count())
-        # testing lookups work with str as __in param rather than 
+        # testing lookups work with str as __in param rather than
         # requiring an IP instance
         self.assertQuerysetEqual(
                DummyModel.objects.filter(field__in=IP('127.0.0.0/30')),
@@ -71,14 +71,18 @@ class IPyFieldTests(TestCase):
         self.assertQuerysetEqual(
                DummyModel.objects.filter(field__in=IP('127.0.0.0/30')),
                [repr(o) for o in DummyModel.objects.filter(
-                                   field__in=['127.0.0.0', '127.0.0.1', 
+                                   field__in=['127.0.0.0', '127.0.0.1',
                                               '127.0.0.2', '127.0.0.3'])])
 
 
-    def test_null_values(self):
+    def test_required_values(self):
         with self.assertRaises(IntegrityError):
             # non-null field should require value
             DummyModel.objects.create()
+
+    def test_null_values(self):
+        # null field can be left empty
+        DummyModel.objects.create(field='::1')
 
     def test_ipv6_support(self):
         obj = DummyModel.objects.create(field='2001:dead:beef::1')

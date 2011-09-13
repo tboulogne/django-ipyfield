@@ -43,7 +43,7 @@ class IPyField(models.Field):
         else:
             raise TypeError('Lookup type %r not supported.' % lookup_type)
 
-    def db_type(self):
+    def db_type(self, connection):
         return 'varchar(39)'
 
     def get_internal_type(self):
