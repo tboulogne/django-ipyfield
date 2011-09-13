@@ -98,5 +98,9 @@ class IPyFieldTests(TestCase):
         DummyModel.objects.filter(field__exact='127.0.0')
         DummyModel.objects.filter(field__in=[1,2,3])
 
+    def test_max_values(self):
+        DummyModel.objects.create(field='ffff:ffff:ffff:ffff:ffff:ffff:ffff:ffff')
+        DummyModel.objects.create(field='255.255.255.255')
+
 
 
