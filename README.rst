@@ -5,8 +5,10 @@ django-ipyfield
 
 ``ipyfield`` provides a model field for 
 `django <https://www.djangoproject.com>`_
-that allows the storage of an ip address as a ``BigInt`` on the db side by 
-using `IPy <http://pypi.python.org/pypi/IPy/>`_ to handle 
+that allows the storage of an ip address as a "pretend" ``PositiveBigInt``
+(currently ``varchar(39)`` until I can figure out how to get an unsigned 64bit
+integer column across all supported DBs)
+on the db side by using `IPy <http://pypi.python.org/pypi/IPy/>`_ to handle
 conversion to an ``IPy.IP`` instance (or ``None``) on the python side. 
 
 Wut?
@@ -62,8 +64,16 @@ query. For now, if you need to use a ``prefix-netmask`` style notation, pass it
 to ``IPy.IP`` yourself and use the resulting instance as your filter parameter.
 
 
+TODOs
+-----
+
+* figure out how to build an appropriately sized integer field across all DBs.
+
 Changelog
 ---------
+
+0.1.5
+    Added south
 
 0.1.4
     IPy.IP instance raises exception when compared to a non-IP instance. This
