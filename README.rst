@@ -72,8 +72,10 @@ TODOs
 Changelog
 ---------
 
+0.1.6
+    Added support for ``gt``, ``gte``, ``lt``, and ``lte`` lookups.
 0.1.5
-    Added south
+    Added south support.
 
 0.1.4
     IPy.IP instance raises exception when compared to a non-IP instance. This

@@ -38,7 +38,7 @@ class IPyField(models.Field):
             if isinstance(value, str):
                 value = IP(value)
             return [self.get_prep_value(v) for v in value]
-        elif lookup_type == 'exact':
+        elif lookup_type in ['exact', 'lt', 'lte', 'gt', 'gte']:
             return self.get_prep_value(value)
         else:
             raise TypeError('Lookup type %r not supported.' % lookup_type)

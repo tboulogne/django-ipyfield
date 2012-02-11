@@ -15,8 +15,8 @@ setup(
     description="IPy.IP instances with BigInt storage for django models",
     long_description=open('README.rst').read(),
     keywords="ip, models, django",
-    packages=find_packages(),
-    setup_requires=("setuptools"),
+    packages=["ipyfield"],
+    setup_requires=["setuptools"],
     install_requires=("setuptools", "IPy", "django",),
     classifiers=(
         "Development Status :: 2 - Pre-Alpha",
@@ -29,8 +29,7 @@ setup(
         "Topic :: Internet :: WWW/HTTP",
         "Topic :: Internet :: WWW/HTTP :: Dynamic Content",
         "Topic :: Internet :: WWW/HTTP :: WSGI",
-        "Topic :: Software Development :: Libraries :: "
-                              "Application Frameworks",
+        "Topic :: Software Development :: Libraries :: Application Frameworks",
         "Topic :: Software Development :: Libraries :: Python Modules",),
 )
 

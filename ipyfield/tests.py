@@ -18,8 +18,8 @@ class DummyModel(Model):
 
 class IPySubclassTests(TestCase):
     def test_ipyfield_can_compare_to_non_IP(self):
-        self.assertNotEqual(IP('::1'), 'foo')
-        self.assertNotEqual(IP('::1'), 22)
+        self.assertNotEqual(IP('::1').strNormal(), 'foo')
+        self.assertNotEqual(IP('::1').int(), 22)
 
     def test_IPy_cant_compare_to_non_IP(self):
         with self.assertRaises(AttributeError):
@@ -93,9 +93,11 @@ class IPyFieldTests(TestCase):
             # it's possible people will forget this is not a char/text field.
             DummyModel.objects.filter(field__startswith='127.0.0')
 
-        with self.assertRaises(TypeError):
-            # greater/less than should be rewritten as range queries.
-            DummyModel.objects.filter(field__gt=1000)
+        
+        DummyModel.objects.filter(field__gt=1000)
+        DummyModel.objects.filter(field__gte=1000)
+        DummyModel.objects.filter(field__lt=1000)
+        DummyModel.objects.filter(field__lte=1000)
 
         # all valid, but won't return anything....
         DummyModel.objects.filter(field=1000)
