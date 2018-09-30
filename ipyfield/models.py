@@ -12,8 +12,6 @@ class IPyField(models.Field):
     """
     Handles conversion between int db column and IP instance.
     """
-    
-    __metaclass__ = models.SubfieldBase
 
     def to_python(self, value):
         if not value: 
